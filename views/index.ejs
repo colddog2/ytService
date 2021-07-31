@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+  <h1>Youtube comments retriever</h1>
+  <form method="post" action="/fetch">
+    <label for="name">video ID</label>
+    <input type="text" name="name">
+    <p>
+    <label for="name">max results</label>
+    <input type="text" name="maxResults">
+    <p>
+    <input type="submit" value="fetch">
+  </form>
+  <h4>Items:</h4>
+  <ul>
+    <% items.forEach(function(item) { %>
+      <li>
+        <%= item.name %>
+      </li>
+      <% }); %>
+  </ul>
+</body>
+
+</html>
