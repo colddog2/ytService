@@ -1,3 +1,4 @@
+"use strict";
 module.exports = async (videoId, maxResults, consumer) => {
     const youtubeClient = require('./youtubeClient');
     let total = 0;
@@ -14,14 +15,15 @@ module.exports = async (videoId, maxResults, consumer) => {
         const {resultsPerPage} = pageInfo;
         let itemsToConsume;
         if (total + resultsPerPage > maxResults) {
-            const leftToConsume = maxResults - total > items.length ? items.length : maxResults - total;
-            total+=leftToConsume;
+            const leftToConsume = Math.min(maxResults - total, items.length);
+            total += leftToConsume;
             if (leftToConsume === 0){
                 break;
             }
+
             itemsToConsume = items.slice(0, leftToConsume);
         } else {
-            total += resultsPerPage > items.length ? items.length : resultsPerPage;
+            total += Math.min(resultsPerPage, items.length);
             itemsToConsume = items;
         }
 
