@@ -35,7 +35,12 @@ module.exports = async (videoId, maxResults, consumer) => {
 
 
     return {
-        n : itemsToReturn.length,
-        items: itemsToReturn
+        request: {
+            videoId, maxResults
+        },
+        response: {
+            n: itemsToReturn.length,
+            comments: itemsToReturn
+        }
     };
 }
