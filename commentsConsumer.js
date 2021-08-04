@@ -3,6 +3,7 @@ module.exports = async (videoId, maxResults, consumer) => {
     const youtubeClient = require('./youtubeClient');
     let total = 0;
     let nextPageToken;
+    let itemsToReturn = []
     do {
         console.log("fetching comments");
         const comments = await youtubeClient.fetchComments(videoId, nextPageToken)
@@ -28,6 +29,13 @@ module.exports = async (videoId, maxResults, consumer) => {
         }
 
         console.log(`consuming ${itemsToConsume.length} comments, total=${total}, nextPageToken=${nextPageToken}`);
+        itemsToReturn.push(...itemsToConsume);
         consumer(itemsToConsume);
     } while (total < maxResults && nextPageToken);
+
+
+    return {
+        n : itemsToReturn.length,
+        items: itemsToReturn
+    };
 }

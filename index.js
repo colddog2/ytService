@@ -26,7 +26,7 @@ app.post('/fetch/comments', (req, res, next) => {
   }
 
   return commentsConsumer(videoId, maxResults, dbConsumer)
-      .then(() => res.send()).catch(next);
+      .then(result => res.send(result)).catch(next);
 });
 
 // error handling
