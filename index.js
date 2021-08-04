@@ -29,6 +29,7 @@ app.post('/fetch/comments', (req, res, next) => {
       .then(() => res.send()).catch(next);
 });
 
+// error handling
 app.use(function (error, req, res, next) {
   return res.status(error.status).json({
     error: error.error

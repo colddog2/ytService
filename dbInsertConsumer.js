@@ -1,6 +1,13 @@
 "use strict"
-const Comment = require("./models/Comment");
+const mongoose = require("mongoose");
 
 module.exports = (comments) => {
-    Comment.create(comments[0])
+    mongoose.connection.db.collection("comments").insertMany(comments, {ordered: false}, (err, result) => {
+        if (err) {
+            return console.error(err);
+        }
+
+        console.log("Done!");
+        console.debug(result.result);
+    })
 }
