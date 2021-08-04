@@ -9,7 +9,7 @@ module.exports = (() => {
 
         throw {
             status: res.status,
-            error: res.statusText
+            statusText: res.statusText
         };
     }
 
