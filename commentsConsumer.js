@@ -7,7 +7,7 @@ module.exports = async (videoId, maxResults, consumer) => {
     do {
         console.log("fetching comments");
         const comments = await youtubeClient.fetchComments(videoId, nextPageToken)
-        if(!comments) {
+        if (!comments) {
             break;
         }
 
@@ -18,7 +18,7 @@ module.exports = async (videoId, maxResults, consumer) => {
         if (total + resultsPerPage > maxResults) {
             const leftToConsume = Math.min(maxResults - total, items.length);
             total += leftToConsume;
-            if (leftToConsume === 0){
+            if (leftToConsume === 0) {
                 break;
             }
 
@@ -30,17 +30,19 @@ module.exports = async (videoId, maxResults, consumer) => {
 
         console.log(`consuming ${itemsToConsume.length} comments, total=${total}, nextPageToken=${nextPageToken}`);
         itemsToReturn.push(...itemsToConsume);
-        consumer(itemsToConsume);
     } while (total < maxResults && nextPageToken);
 
+    const result = {
+            request: {
+                videoId, maxResults
+            },
+            response: {
+                n: itemsToReturn.length,
+                comments: itemsToReturn
+            }
 
-    return {
-        request: {
-            videoId, maxResults
-        },
-        response: {
-            n: itemsToReturn.length,
-            comments: itemsToReturn
-        }
-    };
+    }
+
+    consumer(result);
+    return result;
 }

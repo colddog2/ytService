@@ -1,8 +1,8 @@
 "use strict"
 const mongoose = require("mongoose");
 
-module.exports = (comments) => {
-    mongoose.connection.db.collection("comments").insertMany(comments, {ordered: false}, (err, result) => {
+module.exports = comments => {
+    mongoose.connection.db.collection("comments").insert(comments, {ordered: false}, (err, result) => {
         if (err) {
             return console.error(err);
         }
