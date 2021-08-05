@@ -27,8 +27,8 @@ module.exports = async (videoId, maxResults, consumer) => {
             total += Math.min(resultsPerPage, items.length);
             itemsToConsume = items;
         }
+        console.log(`Got ${itemsToConsume.length} comments, total=${total}, nextPageToken=${nextPageToken}`);
 
-        console.log(`consuming ${itemsToConsume.length} comments, total=${total}, nextPageToken=${nextPageToken}`);
         itemsToReturn.push(...itemsToConsume);
     } while (total < maxResults && nextPageToken);
 

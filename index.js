@@ -15,8 +15,8 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-app.post('/fetch/comments', (req, res, next) => {
-  const { videoId, maxResults } = req.body;
+app.get('/fetch/comments', (req, res, next) => {
+  const { videoId, maxResults } = req.query;
   const maxResultsAsNumber = parseInt(maxResults);
   if (!videoId || !maxResultsAsNumber) {
     return next({
